@@ -1,0 +1,74 @@
+package com.sena;
+
+import java.util.ArrayList;
+import java.util.List;
+
+class Aprendiz {
+    private String id;
+    private String nombre;
+    private String correo;
+    private int edad;
+
+    public Aprendiz(String id, String nombre, String correo, int edad) {
+        this.id = id;
+        this.nombre = nombre;
+        setCorreo(correo); // Validamos desde la creación
+        this.edad = edad;
+    }
+
+    public void setCorreo(String nuevoCorreo) {
+        if (nuevoCorreo == null || !nuevoCorreo.contains("@")) {
+            throw new IllegalArgumentException("El formato del correo '" + nuevoCorreo + "' es inválido.");
+        }
+        this.correo = nuevoCorreo;
+    }
+
+    public String getCorreo() {
+        return this.correo;
+    }
+
+    public String fichaTecnica() {
+        return String.format("[ID: %s] | Nombre: %-15s | Email: %-25s | Edad: %d", 
+                             id, nombre, correo, edad);
+    }
+}
+public class App {
+
+    public static void main(String[] args) {
+        
+        // Prueba
+        Aprendiz userA = new Aprendiz("11066341", "Darien", "darilolito.066@sena.edu.co", 16);
+        Aprendiz userB = new Aprendiz("30356770", "Camila Rueda", "l.rueda@etb.net", 22);
+        Aprendiz userC = new Aprendiz("75647874", "Damian Alexander", "alezzz@gmail.com", 20);
+
+        List<Aprendiz> listaAprendices = new ArrayList<>();
+        listaAprendices.add(userA);
+        listaAprendices.add(userB);
+        listaAprendices.add(userC);
+
+        // 3) Recorrido y salida de datos
+        System.out.println("---------Registro de Aprendices SENA ---------");
+        for (Aprendiz temp : listaAprendices) {
+            System.out.println(temp.fichaTecnica());
+        }
+
+        // 4) Demostración de Setters y manejo de excepciones
+        System.out.println("\n------- Intentando actualizaciones de seguridad -------");
+        
+        try {
+            userA.setCorreo("darilolito.066@outlook.com");
+            System.out.println("✔ Correo actualizado: " + userA.getCorreo());
+
+            // Intento de asignación que falla
+            System.out.println("Intentando asignar correo inválido a userB...");
+            userB.setCorreo("l.rueda.com"); 
+
+        } catch (IllegalArgumentException e) {
+            System.err.println("✘ Error detectado: " + e.getMessage());
+        }
+
+  
+        System.out.println("\nEstado final del primer registro:");
+        System.out.println(userA.fichaTecnica());
+    }
+}
