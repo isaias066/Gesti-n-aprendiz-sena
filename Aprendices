@@ -64,7 +64,7 @@ public class App {
             userB.setCorreo("l.rueda.com"); 
 
         } catch (IllegalArgumentException e) {
-            System.err.println("✘ Error detectado: " + e.getMessage());
+            System.err.println("x Error detectado: " + e.getMessage());
         }
 
   
